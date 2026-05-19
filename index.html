@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爱你呦</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #0a0a0a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    /* 玫瑰花容器 */
+    .flower-container {
+        position: relative;
+        width: 300px;
+        height: 400px;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    /* 花朵主体 */
+    .rose {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 150px;
+        animation: rotateRose 8s linear infinite;
+        transform-origin: center center;
+    }
+
+    .petal {
+        position: absolute;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        /* 添加发光 */
+        filter: drop-shadow(0 0 10px #ff6b81) drop-shadow(0 0 20px #ff4e50);
+        transition: all 0.3s;
+    }
+
+    /* 改进后的花瓣 */
+    .petal-1 {
+        width: 80px;
+        height: 80px;
+        top: 35px;
+        left: 35px;
+        background: radial-gradient(circle at 30% 30%, #ff4e50, #d91e3c);
+        z-index: 5;
+        transform: rotate(-5deg) scale(1);
+        opacity: 0.95;
+        border-radius: 50% 50% 60% 60% / 60% 50% 40% 50%;
+    }
+
+    .petal-2 {
+        width: 100px;
+        height: 90px;
+        top: 20px;
+        left: 25px;
+        background: radial-gradient(circle at 40% 40%, #ff6078, #ff2a4b);
+        z-index: 4;
+        transform: rotate(-15deg) scale(0.95);
+        opacity: 0.9;
+        border-radius: 55% 50% 65% 60% / 60% 55% 45% 50%;
+    }
+
+    .petal-3 {
+        width: 100px;
+        height: 90px;
+        top: 20px;
+        left: 25px;
+        background: radial-gradient(circle at 60% 35%, #ff7f9f, #ff4766);
+        z-index: 3;
+        transform: rotate(10deg) scale(0.98);
+        opacity: 0.9;
+        border-radius: 50% 60% 55% 65% / 50% 60% 50% 55%;
+    }
+
+    .petal-4 {
+        width: 120px;
+        height: 100px;
+        top: 10px;
+        left: 15px;
+        background: radial-gradient(circle at 50% 50%, #ff9cbd, #ff7f9f);
+        z-index: 2;
+        transform: rotate(-25deg) scale(1);
+        opacity: 0.85;
+        border-radius: 55% 60% 60% 70% / 50% 55% 50% 60%;
+    }
+
+    .petal-5 {
+        width: 120px;
+        height: 100px;
+        top: 10px;
+        left: 15px;
+        background: radial-gradient(circle at 40% 60%, #ffc0d0, #ff9cbd);
+        z-index: 1;
+        transform: rotate(25deg) scale(0.97);
+        opacity: 0.8;
+        border-radius: 60% 55% 65% 60% / 55% 50% 60% 55%;
+    }
+
+    /* 花茎与叶子 */
+    .stem {
+        position: absolute;
+        width: 6px;
+        height: 220px;
+        background: #2e7d32;
+        top: 150px;
+        left: 147px;
+        z-index: 0;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .leaf {
+        position: absolute;
+        width: 40px;
+        height: 25px;
+        background: #4caf50;
+        border-radius: 0 50% 0 50%;
+        z-index: 1;
+    }
+
+    .leaf-left {
+        top: 220px;
+        left: 110px;
+        transform: rotate(-30deg);
+    }
+
+    .leaf-right {
+        top: 240px;
+        left: 150px;
+        transform: rotate(30deg);
+    }
+
+    /* 花瓶基座 */
+    .vase {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 0 0 40px 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: none;
+        backdrop-filter: blur(5px);
+    }
+
+    /* 文字表白 */
+    .message {
+        position: absolute;
+        bottom: -50px;
+        width: 100%;
+        text-align: center;
+        color: #ff6080;
+        font-size: 18px;
+        letter-spacing: 4px;
+        text-shadow: 0 0 10px rgba(255, 96, 128, 0.5);
+        animation: blink 1.5s infinite;
+    }
+
+    /* 小爱心 */
+    .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff4e50;
+        transform: rotate(-45deg);
+        top: 100px;
+        left: 50%;
+        animation: floatHeart 4s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff4e50;
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -10px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: 10px;
+        top: 0;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    @keyframes rotateRose {
+        0% { transform: translateX(-50%) rotate(0deg); }
+        50% { transform: translateX(-50%) rotate(2deg); }
+        100% { transform: translateX(-50%) rotate(0deg); }
+    }
+
+    @keyframes floatHeart {
+        0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+        25% { transform: translateX(-10px) translateY(-40px) rotate(-45deg); }
+        50% { transform: translateX(10px) translateY(-80px) rotate(-45deg); opacity: 0.7; }
+        75% { transform: translateX(-5px) translateY(-120px) rotate(-45deg); }
+        100% { transform: translateX(0) translateY(-160px) rotate(-45deg); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="flower-container">
+    <!-- 花朵部分 -->
+    <div class="rose">
+        <div class="petal petal-1"></div>
+        <div class="petal petal-2"></div>
+        <div class="petal petal-3"></div>
+        <div class="petal petal-4"></div>
+        <div class="petal petal-5"></div>
+    </div>
+
+    <!-- 花茎与叶片 -->
+    <div class="stem"></div>
+    <div class="leaf leaf-left"></div>
+    <div class="leaf leaf-right"></div>
+
+    <!-- 花瓶 -->
+    <div class="vase"></div>
+
+    <!-- 表白文字 -->
+    <div class="message">祝香宝越来越漂亮！</div>
+
+    <!-- 漂浮小爱心 -->
+    <div class="heart" style="animation-delay: 0s;"></div>
+    <div class="heart" style="animation-delay: 1s;"></div>
+    <div class="heart" style="animation-delay: 2s;"></div>
+    <div class="heart" style="animation-delay: 3s;"></div>
+
+</div>
+
+</body>
+</html>
